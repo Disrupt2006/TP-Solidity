@@ -9,13 +9,12 @@ contract Estudiante
     address private _docente;
     mapping(string => uint) private _notasmaterias;
 
-    string public Snombre_completo;
 
-    constructor (string memory nombre, string memory apellido, string memory curso)
+    constructor (string memory nombre_, string memory apellido_, string memory curso_)
     {
-        _nombre = nombre;
-        _apellido = apellido;
-        _curso = curso;
+        _nombre = nombre_;
+        _apellido = apellido_;
+        _curso = curso_;
 
         _docente = msg.sender;
     }
@@ -25,14 +24,10 @@ contract Estudiante
         return _apellido;
     }
     
-    function JuntarTexto(string memory added_text) public 
-    {
-        Snombre_completo = string(abi.encodePacked(_nombre, " ", _apellido));
-    }
 
     function nombre_completo() public view returns (string memory)
     {
-        return Snombre_completo;
+        return string(abi.encodePacked(_nombre, " ", _apellido));
     }
 
     function curso() public view returns (string memory)
@@ -40,8 +35,29 @@ contract Estudiante
         return _curso;
     }
 
-    function set_nota_materia (uint nota, string memory materia)
+    function set_nota_materia(uint nota, string memory materia) public
+    {
+        require(msg.sender == _docente, "Solo el docente puede settear las notas");
+        require(nota >= 1 && nota <= 100, "La nota debe ser entre 1 y 100");
+
+        _notasmaterias[materia] = nota;
+    }
+
+    function nota_materia(string memory materia) public view returns (uint)
+    {
+        return _notasmaterias[materia];
+    }
+
+    function aprobo(string memory materia) public view returns (bool)
     {
         
+        if (_notasmaterias[materia] >= 60)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    
     }
-}

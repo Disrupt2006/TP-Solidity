@@ -9,6 +9,9 @@ contract Estudiante
     address private _docente;
     mapping(string => uint) private _notasmaterias;
 
+    uint cantMaterias;
+    string[] private _materias;
+
 
     constructor (string memory nombre_, string memory apellido_, string memory curso_)
     {
@@ -41,6 +44,9 @@ contract Estudiante
         require(nota >= 1 && nota <= 100, "La nota debe ser entre 1 y 100");
 
         _notasmaterias[materia] = nota;
+
+        _materias.push(materia);
+        cantMaterias++;
     }
 
     function nota_materia(string memory materia) public view returns (uint)
@@ -60,5 +66,21 @@ contract Estudiante
             return false;
         }
     
+    }
+
+    function promedio() public view returns (uint)
+    {
+        uint promedio_;
+        uint promedioTotal;
+
+        for (uint i = 0; i <= cantMaterias; i++)
+        {
+            promedio_ += _notasmaterias[_materias[i]];
+        }
+
+        
+        promedioTotal = promedio_ / cantMaterias;
+        
+        return promedioTotal;
     }
 }

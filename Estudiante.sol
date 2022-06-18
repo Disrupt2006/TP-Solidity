@@ -73,13 +73,13 @@ contract Estudiante
         uint promedio_;
         uint promedioTotal;
 
-        for (uint i = 0; i <= cantMaterias; i++)
+        for (uint i = 0; i < cantMaterias; i++)
         {
             promedio_ += _notasmaterias[_materias[i]];
         }
 
         
-        promedioTotal = promedio_ / cantMaterias;
+        promedioTotal = promedio_ / _materias.length;
         
         return promedioTotal;
     }

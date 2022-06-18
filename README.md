@@ -1,4 +1,5 @@
 # TP-Solidity
 
-Link etherscan: 
-Thiago Orue y Lucas Rehmann
+Link etherscan: https://rinkeby.etherscan.io/address/0xdaFBBa494b71d784f088035224429F603Fab623a
+
+Alumnos: Thiago Orue y Lucas Rehmann
